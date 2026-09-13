@@ -37,6 +37,11 @@
             <h6 class="card-subtitle mb-2 text-muted">{{ review.date }}
             </h6>
             <p class="card-text">{{ review.comment }}</p>
+            {% if user.is_authenticated %}
+            <form method="POST" action="{% url 'movies.report_review' id=template_data.movie.id review_id=review.id %}">{% csrf_token %}
+              <button type="submit" class="btn bg-dark text-white"> Report </button>
+            </form>
+            {% endif %}
             {% if user.is_authenticated and user == review.user %}
             <a class="btn btn-primary" href="{% url 'movies.edit_review' id=template_data.movie.id review_id=review.id %}">Edit
             </a>
